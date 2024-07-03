@@ -2,7 +2,7 @@ name: 'Build Android app'
 
 on:
   workflow_dispatch:
-    branches: [dev]
+    branches:  - main
     # can add push and pull_request here
 
 jobs:
@@ -15,12 +15,12 @@ jobs:
       - name: Install Java
         uses: actions/setup-java@v2
         with:
-          java-version: '17.0'
+          java-version: 17
           distribution: 'adopt'
           cache: 'gradle'
 
       - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
+        uses: gradle/wrapper-validation-action@v3
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -29,9 +29,8 @@ jobs:
 
       - name: Run Yarn Install
         run: |
-          cd ./packages/app-mobile/
-          npm i -g corepack
-          yarn install
+             npm i -g corepack
+             yarn install
       - name: Build application
         run: |
           cd ./packages/app-mobile/android
